@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial('COM3', 9600)
+ser = serial.Serial('/dev/ttyACM0', 9600)
 
 # move to the given column
 def move_to_col(column):
