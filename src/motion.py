@@ -3,15 +3,14 @@ import RPi.GPIO as GPIO
 import time
 
 # set pins for motor controller
-ena = 0
-left1 = 5
-left2 = 6
-right1 = 13
-right2 = 19
-enb = 26
+ena = 27
+left1 = 29
+left2 = 31
+right1 = 33
+right2 = 35
+enb = 37
 
 # attach pins to gpio
-GPIO.setmode(GPIO.BCM)
 GPIO.setup(left1, GPIO.OUT)
 GPIO.setup(left2, GPIO.OUT)
 GPIO.setup(right1, GPIO.OUT)
