@@ -27,3 +27,5 @@ GPIO.output(left1, GPIO.HIGH)
 GPIO.output(left2, GPIO.LOW)
 GPIO.output(right1, GPIO.HIGH)
 GPIO.output(right2, GPIO.LOW)
+
+GPIO.cleanup()
