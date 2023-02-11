@@ -19,9 +19,9 @@ GPIO.setup(right2, GPIO.OUT)
 GPIO.setup(ena, GPIO.OUT)
 GPIO.setup(enb, GPIO.OUT)
 
-# set the speeds of ena and enb to 255
-GPIO.PWM(ena, 255).start(255)
-GPIO.PWM(enb, 255).start(255)
+# set the speeds of ena and enb to 100
+GPIO.PWM(ena, 100).start(100)
+GPIO.PWM(enb, 100).start(100)
 
 # how long to run the motor for per column
 TIME_BETWEEN = 0.5
