@@ -1,4 +1,4 @@
-
+import numpy as np
 
 # given an image of a board with 42 circles placed within 6 rows and 7 columns, where the first circle is 89 pixels from the left and 61 pixels from the top, and the circle centers are 81 pixels apart, 
 # for each circle, determine the color of the circle by calculating the average color of the pixels within a 10 pixel radius of the center of the circle
@@ -9,47 +9,36 @@ import cv2
 path = r'img_c4\boardimg6.jpg'
 # Read the image
 img = cv2.imread(path)
-
-# Define the circle centers
-circle_centers = []
-for i in range(6):
-    for j in range(7):
-        circle_centers.append((89 + 81*j, -61 - 81*i))
-
-# Define the circle radius
-circle_radius = 10
+height, width, depth = img.shape
+col_step = width // 7
+row_step = height // 6
 
 # Define the colors
 red = (0, 0, 255)
 yellow = (0, 255, 255)
-# the empty circle is white with a tint of blue due to the lighting
 empty = (255, 255, 255)
 
-# Define the matrix
-matrix = [[0 for i in range(7)] for j in range(6)]
-
-# For each circle, determine the color of the circle by calculating the average color of the pixels within a 10 pixel radius of the center of the circle
+avg_colors = [[[] for _ in range(7)] for _ in range(6)]
 for i in range(6):
     for j in range(7):
-        # Define the circle
-        circle = (circle_centers[i*7 + j], circle_radius)
-        # Define the mask
-        mask = img.copy()
-        mask = cv2.circle(mask, circle[0], circle[1], empty, -1)
-        # Calculate the average color of the pixels within the circle
-        average_color = cv2.mean(img, mask=mask)
-        # Print the average color
-        print(average_color)
-
-        # Determine the color of the circle
-        if average_color[0] > 200 and average_color[1] > 200 and average_color[2] < 100:
-            matrix[i][j] = 1
-        elif average_color[0] > 200 and average_color[1] < 100 and average_color[2] < 100:
-            matrix[i][j] = 2
-
-# Print the matrix
-for i in range(6):
-    print(matrix[i])
+        avg_colors[i][j] = np.average(img[i * row_step + 25:(i + 1) * row_step - 25, j * col_step + 25:(j + 1) * col_step - 25], axis=(0, 1))
+        
+colors = [[0 for _ in range(7)] for _ in range(6)]
+for row in range(6):
+    for col in range(7):
+        # find the difference between the average color of the circle and the red and yellow colors and empty
+        red_diff = np.linalg.norm(avg_colors[row][col] - red)
+        yellow_diff = np.linalg.norm(avg_colors[row][col] - yellow)
+        empty_diff = np.linalg.norm(avg_colors[row][col] - empty)
+        
+        if red_diff < yellow_diff and red_diff < empty_diff:
+            colors[i][j] = 1
+        elif yellow_diff < red_diff and yellow_diff < empty_diff:
+            colors[i][j] = 2
+        else:
+            colors[i][j] = 0
+        
+print(colors)
 
 # Display the image
 cv2.imshow('image', img)
