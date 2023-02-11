@@ -3,12 +3,12 @@ import RPi.GPIO as GPIO
 import time
 
 # set pins for motor controller
-ena = 27
-left1 = 29
-left2 = 31
-right1 = 33
-right2 = 35
-enb = 37
+ena = 29
+left1 = 31
+enb = 32
+left2 = 33
+right1 = 35
+right2 = 37
 
 # attach pins to gpio
 GPIO.setmode(GPIO.BOARD)
