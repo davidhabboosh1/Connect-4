@@ -31,6 +31,7 @@ current_col = -1
 
 # move the motors to get to the given column
 def move_to_column(column):
+    global current_col
     fwd = column > current_col
     
     for _ in range(column - current_col):
