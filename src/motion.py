@@ -26,9 +26,6 @@ GPIO.output(enb, GPIO.HIGH)
 # how long to run the motor for per column
 TIME_BETWEEN = 0.5
 
-# save the current position of the robot
-current_col = -1
-
 # move the motors to get to the given column
 def move_to_column(column):
     fwd = column > current_col
@@ -50,4 +47,5 @@ def move_to_start():
     move_to_column(-1)
     
 if __name__ == '__main__':
+    current_col = -1
     move_to_column(5)
