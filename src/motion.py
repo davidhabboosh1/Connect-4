@@ -11,7 +11,7 @@ right2 = 19
 enb = 26
 
 # attach pins to gpio
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(left1, GPIO.OUT)
 GPIO.setup(left2, GPIO.OUT)
 GPIO.setup(right1, GPIO.OUT)
