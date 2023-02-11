@@ -20,8 +20,8 @@ GPIO.setup(ena, GPIO.OUT)
 GPIO.setup(enb, GPIO.OUT)
 
 # set the speeds of ena and enb to 255
-GPIO.output(ena, GPIO.HIGH)
-GPIO.output(enb, GPIO.HIGH)
+GPIO.PWM(ena, 255).start(255)
+GPIO.PWM(enb, 255).start(255)
 
 # how long to run the motor for per column
 TIME_BETWEEN = 0.5
@@ -33,9 +33,6 @@ current_col = -1
 def move_to_column(column):
     global current_col
     fwd = column > current_col
-    
-    print(column - current_col)
-    print(fwd)
     
     for _ in range(column - current_col):
         GPIO.output(left1, GPIO.HIGH if fwd else GPIO.LOW)
