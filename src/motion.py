@@ -34,6 +34,9 @@ def move_to_column(column):
     global current_col
     fwd = column > current_col
     
+    print(column - current_col)
+    print(fwd)
+    
     for _ in range(column - current_col):
         GPIO.output(left1, GPIO.HIGH if fwd else GPIO.LOW)
         GPIO.output(left2, GPIO.LOW if fwd else GPIO.HIGH)
