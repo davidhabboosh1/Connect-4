@@ -51,3 +51,4 @@ def move_to_start():
     move_to_column(-1)
     
 move_to_column(5)
+GPIO.cleanup()
