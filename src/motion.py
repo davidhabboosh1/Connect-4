@@ -5,10 +5,10 @@ import time
 # set pins for motor controller
 ena = 29
 left1 = 31
-enb = 32
 left2 = 33
 right1 = 35
 right2 = 37
+enb = 38
 
 # attach pins to gpio
 GPIO.setmode(GPIO.BOARD)
