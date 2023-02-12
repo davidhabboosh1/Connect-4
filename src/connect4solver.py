@@ -165,6 +165,7 @@ class Connect4Solver(object):
                     if next_val > value:
                         value = next_val
                         best_move = i
+            self.board = copy.deepcopy(board_copy)
             return value, best_move
         else:
             value = 1000000
@@ -179,6 +180,7 @@ class Connect4Solver(object):
                     if next_val < value:
                         value = next_val
                         best_move = i
+            self.board = copy.deepcopy(board_copy)
             return value, best_move
 
     def _exec_move(self, board, move):

@@ -30,15 +30,15 @@ if __name__ == '__main__':
             
         print(f'{new_board}\n')
         
+        # update the board
+        board = new_board
+        c4s.update_state(board)
+        
         # check if the game is over
         if (c4s.winner(board) != -1):
             break
         
         print('My turn\n')
-            
-        # update the board
-        board = new_board
-        c4s.update_state(board)
         
         # get the next move and make it
         next_move = c4s.next_move()
