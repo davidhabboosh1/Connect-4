@@ -14,7 +14,7 @@ Servo servo1;
 Servo servo2;
 
 // set current column
-int cur_col = 1;
+int cur_col = 0;
 
 void setup() {
   // set pinmodes
@@ -38,23 +38,29 @@ void setup() {
 void loop() {
   if (Serial.available()) {
     char data = Serial.read();
-    int col = data - '0';
 
-    // move to the column
-    moveTo(col);
-    delay(3000);
-    
-    // drop piece
-    servo1.write(90);
-    delay(1000);
-    servo1.write(0);
-    delay(1000);
+    if (data == 'r') {
+      cur_col = 0;
+    } else {
+      // get the col as a number
+      int col = data - '0';
 
-    // queue next piece
-    servo2.write(180);
-    delay(1000);
-    servo2.write(90);
-    delay(1000);
+      // move to the column
+      moveTo(col);
+      delay(3000);
+      
+      // drop piece
+      servo1.write(90);
+      delay(1000);
+      servo1.write(0);
+      delay(1000);
+
+      // queue next piece
+      servo2.write(180);
+      delay(1000);
+      servo2.write(90);
+      delay(1000);
+    }
   }
 }
 
@@ -68,7 +74,7 @@ void moveTo(int col) {
   digitalWrite(RIGHT_FWD, !fwd);
   digitalWrite(RIGHT_BCK, fwd);
   
-  delay(255 * abs(col - cur_col));
+  delay(155 * abs(col - cur_col));
 
   digitalWrite(LEFT_FWD, 0);
   digitalWrite(LEFT_BCK, 0);

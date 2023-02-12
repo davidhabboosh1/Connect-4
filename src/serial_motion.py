@@ -2,6 +2,10 @@ import serial
 import time
 
 # send the move to the arduino
-def send_to_serial(col, ser):
-    ser.write(f'{col}'.encode('utf-8'))
-    time.sleep(5)
+def move(col, ser):
+    ser.write(f'{6 - col}'.encode('utf-8'))
+    time.sleep(3)
+    
+# reset the board
+def reset(ser):
+    ser.write('r'.encode('utf-8'))

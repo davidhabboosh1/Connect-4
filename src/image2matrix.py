@@ -52,6 +52,9 @@ def image_to_matrix(img):
         x,y,w,h = rect
         cv2.rectangle(img_circle_contours,(x,y),(x+w,y+h),(0,0,255),1)
 
+    if len(rect_list) == 0:
+        return None
+
     # Interpolate Grid
     rows, cols = (6,7)
     mean_w = sum([rect[2] for _ in rect_list]) / len(rect_list)
@@ -104,5 +107,4 @@ def image_to_matrix(img):
                 grid[y_i][x_i] = id_yellow
                 cv2.circle(img_grid, (x,y), r, (0,255,255),thickness=-1)
                 
-    # flip the grid horizontally
-    return np.flip(grid, axis=1)
+    return grid
