@@ -11,6 +11,13 @@ class Connect4Solver(object):
                       [0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0],]
         self.turn = turn
+
+    def update_state(self, board):
+        self.board = board
+    
+    def next_move(self):
+        (value, best_move) = self._make_move(self.board, 5, True)
+        return best_move
     
     def heuristic(self, board):
         heur = 0
@@ -185,13 +192,3 @@ class Connect4Solver(object):
                 break
 
         return land
-
-
-mm = Connect4Solver(1)
-
-print(mm._make_move([ [0, 0, 0, 1, 0, 0, 0],
-                      [1, 0, 0, 1, 0, 0, 0],
-                      [1, 0, 0, 1, 0, 0, 0],
-                      [2, 2, 0, 2, 0, 0, 0],
-                      [1, 1, 0, 2, 0, 0, 0],
-                      [1, 1, 1, 2, 2, 0, 0],], 5, True))
