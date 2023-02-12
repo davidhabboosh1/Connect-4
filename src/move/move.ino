@@ -14,7 +14,7 @@ Servo servo1;
 Servo servo2;
 
 // set current column
-int cur_col = -1;
+int cur_col = 1;
 
 void setup() {
   // set pinmodes
@@ -28,6 +28,8 @@ void setup() {
   // setup servo
   servo1.attach(SERVO_1);
   servo2.attach(SERVO_2);
+  servo1.write(0);
+  servo2.write(90);
 
   // start serial
   Serial.begin(9600);
@@ -35,19 +37,17 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {
-    int col = Serial.read() - 'a' - 1;
-
-    if (col == 10) { // reset the piece
-      col = -1;
-    }
+    char data = Serial.read();
+    int col = data - '0';
 
     // move to the column
     moveTo(col);
+    delay(3000);
     
     // drop piece
-    servo1.write(180);
-    delay(1000);
     servo1.write(90);
+    delay(1000);
+    servo1.write(0);
     delay(1000);
 
     // queue next piece
@@ -55,23 +55,20 @@ void loop() {
     delay(1000);
     servo2.write(90);
     delay(1000);
-
-    // put the robot back into place
-    moveTo(-1);
   }
 }
 
 void moveTo(int col) {
   bool fwd = col > cur_col;
 
-  analogWrite(ENA, 255);
-  analogWrite(ENB, 255);
+  analogWrite(ENA, 100);
+  analogWrite(ENB, 100);
   digitalWrite(LEFT_FWD, fwd);
   digitalWrite(LEFT_BCK, !fwd);
   digitalWrite(RIGHT_FWD, !fwd);
   digitalWrite(RIGHT_BCK, fwd);
   
-  delay(20 * abs(col - cur_col));
+  delay(255 * abs(col - cur_col));
 
   digitalWrite(LEFT_FWD, 0);
   digitalWrite(LEFT_BCK, 0);

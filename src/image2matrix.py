@@ -4,7 +4,8 @@ import numpy as np
 
 def get_new_board():
     # take a picture of the scene and save it as a matrix
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+    camera.set(cv2.CAP_PROP_FPS, 1)
     _, img = camera.read()
     return image_to_matrix(img)
     
@@ -103,4 +104,5 @@ def image_to_matrix(img):
                 grid[y_i][x_i] = id_yellow
                 cv2.circle(img_grid, (x,y), r, (0,255,255),thickness=-1)
                 
-    return grid
+    # flip the grid horizontally
+    return np.flip(grid, axis=1)
