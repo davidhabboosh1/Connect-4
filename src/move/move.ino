@@ -37,25 +37,27 @@ void loop() {
   if (Serial.available()) {
     int col = Serial.read() - 'a' - 1;
 
-    // reset the piece
-    if (col == 10) {
-      // drop piece
-      servo1.write(180);
-      delay(1000);
-      servo1.write(90);
-      delay(1000);
-
-      // queue next piece
-      servo2.write(180);
-      delay(1000);
-      servo2.write(90);
-      delay(1000);
-
-      // put the robot back into place
-      moveTo(-1);
-    } else {
-      moveTo(col);
+    if (col == 10) { // reset the piece
+      col = -1;
     }
+
+    // move to the column
+    moveTo(col);
+    
+    // drop piece
+    servo1.write(180);
+    delay(1000);
+    servo1.write(90);
+    delay(1000);
+
+    // queue next piece
+    servo2.write(180);
+    delay(1000);
+    servo2.write(90);
+    delay(1000);
+
+    // put the robot back into place
+    moveTo(-1);
   }
 }
 
